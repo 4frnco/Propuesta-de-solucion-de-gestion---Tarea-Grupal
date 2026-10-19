@@ -190,3 +190,12 @@ La carpeta `evidencias/` contiene capturas relacionadas con la configuración, l
 - Utilizar contraseñas seguras en entornos reales.
 - Mantener las credenciales fuera de los archivos públicos del proyecto.
 
+## Prompts utilizados con IA - ChatGPT
+
+### 1. Diagnóstico del error de inicialización de Odoo
+
+> Estoy desplegando Odoo 18 con PostgreSQL mediante Docker Compose en Ubuntu 22.04. Al acceder a Odoo aparece un error HTTP 500 y los registros indican `Database odoo not initialized`, `KeyError: 'ir.http'` y `relation "ir_module_module" does not exist`. Analiza la causa del problema y proporciona los comandos necesarios para inicializar correctamente la base de datos sin perder los datos persistentes.
+
+### 2. Diagnóstico del error durante la actualización del kernel
+
+> Durante la actualización de Ubuntu 22.04 en VirtualBox falla la configuración de `linux-image-6.8.0-138-generic`. El archivo `/etc/kernel/postinst.d/vboxadd` está vacío y provoca un error `Exec format error`. Explica cómo diagnosticar y resolver la incidencia de forma segura, completar la configuración de los paquetes pendientes y comprobar que el problema no impide continuar con el proyecto Docker.
