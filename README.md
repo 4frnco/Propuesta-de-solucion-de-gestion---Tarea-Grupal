@@ -129,4 +129,64 @@ Se han configurado volúmenes de Docker para PostgreSQL, Odoo y pgAdmin. Esto pe
 La persistencia se comprobó creando un contacto de prueba en Odoo y verificando que seguía disponible después de reiniciar los servicios.
 
 
---Hugo
+## Incidencias y soluciones
+
+
+### Error al actualizar el kernel de Ubuntu en VirtualBox
+
+
+Durante la actualización del sistema, falló la configuración del paquete `linux-image-6.8.0-138-generic`. El error estaba relacionado con el script `/etc/kernel/postinst.d/vboxadd`, que estaba vacío y provocaba un error `Exec format error`.
+
+
+**Solución aplicada:**
+
+
+1. Se renombró el archivo problemático a `vboxadd.bak`.
+2. Se ejecutó el siguiente comando para completar la configuración de los paquetes pendientes:
+
+
+  ```bash
+  sudo dpkg --configure -a
+  ```
+
+
+3. La configuración del kernel y la actualización de GRUB finalizaron correctamente.
+
+
+El problema estaba relacionado con VirtualBox Guest Additions y no impedía continuar con el despliegue de Odoo y los servicios Docker.
+
+
+### Error HTTP 500 en Odoo
+
+
+Durante la inicialización apareció un error relacionado con la falta de inicialización de la base de datos y de la tabla `ir_module_module`.
+
+
+Se inicializó el módulo base de Odoo con el siguiente procedimiento:
+
+
+```bash
+sudo docker compose stop odoo
+sudo docker compose run --rm odoo odoo -d odoo -i base --stop-after-init
+sudo docker compose up -d
+```
+
+
+Después, Odoo volvió a funcionar correctamente.
+
+
+
+
+## Evidencias
+
+
+La carpeta `evidencias/` contiene capturas relacionadas con la configuración, la ejecución de los contenedores, el acceso a Odoo y pgAdmin, y las pruebas de persistencia.
+
+
+## Seguridad
+(Recomendamos)
+- No publicar el archivo `.env`.
+- No incluir contraseñas ni tokens de acceso en el repositorio.
+- Utilizar contraseñas seguras en entornos reales.
+- Mantener las credenciales fuera de los archivos públicos del proyecto.
+
